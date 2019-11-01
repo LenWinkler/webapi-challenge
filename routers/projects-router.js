@@ -34,6 +34,28 @@ router.get('/:id/actions', (req, res) => {
             console.log('get post actions error', err);
             res.status(500).json({ errorMessage: "Unable to get actions for the post" })
         })
+});
+
+router.post('/', (req, res) => {
+    Projects.insert(req.body)
+        .then(response => {
+            res.status(200).json(response)
+        })
+        .catch(err => {
+            console.log('error adding project');
+            res.status(500).json({ errorMessage: "Unable to add project" })
+        })
+});
+
+router.post('/:id/actions', (req, res) => {
+    Actions.insert({ ...req.body, project_id: req.params.id })
+        .then(response => {
+            res.status(200).json(response)
+        })
+        .catch(err => {
+            console.log('error adding action', err);
+            res.status(500).json({ errorMessage: "Unable to add action to project" })
+        })
 })
 
 module.exports = router;
