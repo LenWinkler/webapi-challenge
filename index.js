@@ -17,12 +17,12 @@ const express = require('express');
 const server = express();
 
 const projectsRouter = require('./routers/projects-router');
-const actionsRouter = require('./routers/actions-router');
+// const actionsRouter = require('./routers/actions-router');
 
 server.use(express.json());
 
 server.use('/api/projects', projectsRouter);
-server.use('/api/actions', actionsRouter);
+// server.use('/api/actions', actionsRouter);
 
 server.get('/', (req, res) => {
     res.send('sprint challenge')
@@ -31,3 +31,5 @@ server.get('/', (req, res) => {
 server.listen(4016, () => {
     console.log('\nServer running on 4016\n')
 });
+
+module.exports = server;
