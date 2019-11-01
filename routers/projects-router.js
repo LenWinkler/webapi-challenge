@@ -56,6 +56,32 @@ router.post('/:id/actions', (req, res) => {
             console.log('error adding action', err);
             res.status(500).json({ errorMessage: "Unable to add action to project" })
         })
-})
+});
+
+router.put('/:id', (req, res) => {
+    Projects.update(req.params.id, req.body)
+        .then(response => {
+            if(response === null) {
+                res.status(404).json({ errorMessage: "Couldn't find project with this ID" })
+            } else {
+                res.status(200).json(response)
+            }
+        })
+        .catch(err => {
+            console.log('error updating project', err);
+            res.status(500).json({ errorMessage: "Unable to update project" })
+        })
+});
+
+router.delete('/:id', (req, res) => {
+    Projects.remove(req.params.id)
+        .then(response => {
+            res.status(200).json({ message: "Project successfully deleted" })
+        })
+        .catch(err => {
+            console.log('error deleting project', err);
+            res.status(500).json({ errorMessage: "Unable to delete project" })
+        })
+});
 
 module.exports = router;
